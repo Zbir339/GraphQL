@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity(name = "books")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
+@Builder
 public class BookEntity {
 
     @Id
