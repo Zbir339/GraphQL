@@ -3,6 +3,7 @@ package com.graphQl.demo.repository;
 
 import com.graphQl.demo.models.AuthorEntity;
 import com.graphQl.demo.models.BookEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -16,7 +17,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+
+@DataJpaTest
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 public class BookRepositoryTest {
 
     @Autowired
@@ -25,31 +28,31 @@ public class BookRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;
 
-//    @Sql("/data.sql")
-//    @Test @DisplayName("Saving a new Book in the table")
-//    void creatingNewBookReturnBook(){
-//
-//        bookRepository.save(BookEntity.builder()
-//                        .id(null)
-//                        .name("Harry Potter And the Phoenix")
-//                        .price(800f)
-//                        .description("Harry's journey")
-//                        .author( AuthorEntity.builder().id(1).build())
-//                .build());
-//
-//        List<BookEntity> books  = bookRepository.findAll();
-//
-//        /*Super Critical point here */
-//
-//
-//        assertAll("Asserting that the book is not null with id 1 and identical names",
-//                ()->assertEquals(books.size(),4,"Should have a size of 4"),
-//                ()->assertNotNull(books.get(3),"Should return Non Null value"),
-//                ()->assertEquals(books.get(3).getId(),4,"Should have id 4"),
-//                ()->assertEquals(books.get(3).getName(),"Harry Potter And the Phoenix","Should have identical Name")
-//                //()->assertEquals(books.get(3).getAuthor().getName(),"JK Watkins","Should Return JK Watkins")
-//        );
-//    }
+    @Sql("/data.sql")
+    @Test @DisplayName("Saving a new Book in the table")
+    void creatingNewBookReturnBook(){
+
+        AuthorEntity author = authorRepository.findById(1).orElseGet(() -> {
+            AuthorEntity newAuthor = new AuthorEntity();
+            newAuthor.setBornDate(LocalDate.of(2001, 4, 25));
+            newAuthor.setName("Jk Watkins");
+            return authorRepository.save(newAuthor);
+        });
+
+        bookRepository.save(new BookEntity(null,"Harry Potter And the Phoenix",450f,"Trololololololo",author));
+
+        List<BookEntity> books  = bookRepository.findAll();
+
+        assertAll("Asserting that the book is not null with id 1 and identical names",
+                ()->assertEquals(books.size(),4,"Should return Non Null value"),
+                ()->assertEquals(books.get(3).getId(),4,"Should have id 4 since it's the forth item"),
+                ()->assertEquals(books.get(3).getName(),"Harry Potter And the Phoenix","Should have identical Name"),
+                ()->assertEquals(books.get(0).getAuthor().getName(),"JK Watkins"));
+        /*Super Critical point here */
+        for(int i= 0; i< books.size();i++ ){
+            System.out.println("Book :" + i + " Author Name "+books.get(i).getAuthor().getName());
+        }
+    }
 
 
 
