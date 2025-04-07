@@ -1,7 +1,9 @@
 package com.graphQl.demo.service.impl;
 
+import com.graphQl.demo.dto.AuthorDto;
 import com.graphQl.demo.dto.BookDto;
 import com.graphQl.demo.exception.BookNotFoundException;
+import com.graphQl.demo.mapper.impl.AuthorMapper;
 import com.graphQl.demo.models.AuthorEntity;
 import com.graphQl.demo.models.BookEntity;
 import com.graphQl.demo.repository.BookRepository;
@@ -40,6 +42,10 @@ class BookEntityServiceImplTest {
 
     @Autowired
     BookEntityServiceImpl bookEntityService;
+
+    @Autowired
+    AuthorMapper authorMapper;
+
 
     BookEntity book1;
     BookEntity book2;
@@ -153,7 +159,13 @@ class BookEntityServiceImplTest {
                 ()->assertNotNull(bookDto.getAuthor(),"The author should not be null")
                 );
 
-
-
     }
+
+    @Test
+    void testAuthorMapper(){
+        AuthorDto a = authorMapper.mapTo(author1);
+        System.out.println(a.getBornDate());
+    }
+
+
 }

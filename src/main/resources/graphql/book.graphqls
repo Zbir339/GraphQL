@@ -8,12 +8,12 @@ type Query {
 type Book {
     id: ID
     name: String
-    pageCount: Int
+    description:String
     author: Author
 }
 
 type Author {
     id: ID
-    firstName: String
-    lastName: String
+    name:String
+    bornDate:String
 }
