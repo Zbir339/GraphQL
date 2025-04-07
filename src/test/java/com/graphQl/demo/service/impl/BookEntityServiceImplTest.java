@@ -2,8 +2,10 @@ package com.graphQl.demo.service.impl;
 
 import com.graphQl.demo.dto.AuthorDto;
 import com.graphQl.demo.dto.BookDto;
+import com.graphQl.demo.dto.BookInput;
 import com.graphQl.demo.exception.BookNotFoundException;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
+import com.graphQl.demo.mapper.impl.BookInputMapper;
 import com.graphQl.demo.models.AuthorEntity;
 import com.graphQl.demo.models.BookEntity;
 import com.graphQl.demo.repository.BookRepository;
@@ -41,6 +43,9 @@ class BookEntityServiceImplTest {
     BookRepository bookRepository;
 
     @Autowired
+    BookInputMapper bookInputMapper;
+
+    @Autowired
     BookEntityServiceImpl bookEntityService;
 
     @Autowired
@@ -51,6 +56,7 @@ class BookEntityServiceImplTest {
     BookEntity book2;
     BookEntity book3;
     BookEntity book4;
+    BookInput book5;
 
     AuthorEntity author1;
     AuthorEntity author2;
@@ -99,6 +105,14 @@ class BookEntityServiceImplTest {
                 .price(650f)
                 .description("Describes the ....")
                 .build();
+
+        book5 = BookInput.builder()
+                .name("Atomic Habits")
+                .authorId(1)
+                .price(650f)
+                .description("Describes the ....")
+                .build();
+
     }
 
     @Test @DisplayName("Finding book by name must return book")
@@ -110,7 +124,7 @@ class BookEntityServiceImplTest {
 
         assertAll("",
                 ()->assertNotNull(book,"Should return not null"),
-                ()->assertEquals(book.getName(),"Harry Potter And the Phoenix"),
+                ()->assertEquals("Harry Potter And the Phoenix", book.getName()),
                 ()->assertNotNull(book.getAuthor(),"Should as well return not null"));
     }
 
@@ -137,13 +151,13 @@ class BookEntityServiceImplTest {
         int index = rand.nextInt(2);
 
         assertAll("Should ",
-                ()->assertEquals(books.size(),3,"Shoudl return all the elements"),
+                ()->assertEquals(3, books.size(),"Shoudl return all the elements"),
                 ()->assertNotNull(books.get(index),"Should not be null"),
                 ()->assertNotNull(books.get(index).getAuthor(),"The author should not be null"));
 
     }
 
-    @Test @DisplayName("Saving new book")
+    @Test @DisplayName("Saving new book using the entity")
     void save() {
 
         when(bookRepository.save(book4)).thenAnswer(invoc -> {
@@ -155,16 +169,49 @@ class BookEntityServiceImplTest {
 
         assertAll("",
                 ()->assertNotNull(bookDto,"Should not be of null value"),
-                ()->assertEquals(bookDto.getId(),4,"The id must be incremented"),
+                ()->assertEquals(4, bookDto.getId(),"The id must be incremented"),
                 ()->assertNotNull(bookDto.getAuthor(),"The author should not be null")
                 );
 
     }
 
+
+    @Test @DisplayName("Saving new book using entity Manager")
+    void saveBookInputReutrnSaved() {
+
+        BookEntity book = bookInputMapper.mapTo(book5);
+
+
+        /* Mock Trap you're fixed to one mock type */
+//        when(bookRepository.save(book)).thenAnswer(invoc -> {
+//            book.setId(5);
+//            return book;
+//        });
+
+        when(bookRepository.save(any(BookEntity.class))).thenAnswer(invoc -> {
+            BookEntity saved = invoc.getArgument(0); //since it is generated dynamically we must catch the entity
+            saved.setId(5);
+            return saved;
+        });
+
+        /*System.out.println("Book: "+book.getName());
+        System.out.println("Book Input : "+book5.getName());*/
+
+
+        BookDto bookDto = bookEntityService.save(book5);
+
+        assertAll("",
+                ()->assertNotNull(bookDto,"Should not be of null value"),
+                ()->assertEquals(5, bookDto.getId(),"The id must be incremented"),
+                ()->assertNotNull(bookDto.getAuthor(),"The author should not be null")
+        );
+
+    }
+
     @Test
-    void testAuthorMapper(){
+    void testAuthorMapperDate(){
         AuthorDto a = authorMapper.mapTo(author1);
-        System.out.println(a.getBornDate());
+        assertEquals("1985-04-25", a.getBornDate());
     }
 
 

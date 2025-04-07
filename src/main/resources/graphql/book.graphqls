@@ -2,15 +2,30 @@ type Query {
     ## this are the queries you have
     ## !! this queries must have the same name in your controller and same returning type
     books: [Book]
-    bookById(id: ID): Book
+    bookByName(name: String):Book
+    #bookById(id: ID): Book
 }
+###type mutation
+type Mutation {
+    createBook(bookInput: BookInput): Book
+}
+
 ### this below are schemas
 type Book {
     id: ID
     name: String
+    price:Float
     description:String
     author: Author
 }
+
+input BookInput {
+    name: String!
+    price: Float!
+    description: String
+    authorId: ID!
+}
+
 
 type Author {
     id: ID

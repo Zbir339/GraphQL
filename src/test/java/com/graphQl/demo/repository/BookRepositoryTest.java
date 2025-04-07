@@ -35,7 +35,7 @@ public class BookRepositoryTest {
         List<BookEntity> books  = bookRepository.findAll();
         int number = rand.nextInt(2);
         assertAll("Asserting that the book is not null with 3 books and no null values within",
-                ()->assertEquals(books.size(),3,"Should return Non Null value"),
+                ()->assertEquals(3, books.size(),"Should return Non Null value"),
                 ()->assertNotNull(books.get(number).getName(),"The Name of a random book should not be null"),
                 ()->assertNotNull(books.get(number).getAuthor(),"The author part should not be null")); // if we cant to make our test case more edgy a book can sometimes have no author
         /*Super Critical point here */
@@ -60,10 +60,10 @@ public class BookRepositoryTest {
         List<BookEntity> books  = bookRepository.findAll();
 
         assertAll("Asserting that the book is not null with id 1 and identical names",
-                ()->assertEquals(books.size(),4,"Should return Non Null value"),
-                ()->assertEquals(books.get(3).getId(),4,"Should have id 4 since it's the forth item"),
-                ()->assertEquals(books.get(3).getName(),"Harry Potter And the Phoenix","Should have identical Name"),
-                ()->assertEquals(books.get(3).getAuthor().getName(),"JK Watkins"));
+                ()->assertEquals(4, books.size(),"Should return Non Null value"),
+                ()->assertEquals(4, books.get(3).getId(),"Should have id 4 since it's the forth item"),
+                ()->assertEquals("Harry Potter And the Phoenix", books.get(3).getName(),"Should have identical Name"),
+                ()->assertEquals("JK Watkins", books.get(3).getAuthor().getName()));
         /*Super Critical point here */
         /*  N + 1 Problem a huge critical one that'll make your db and back app suffer eventually    */
 
@@ -81,8 +81,8 @@ public class BookRepositoryTest {
 
         assertAll("Asserting that the book is not null with id 1 and identical names",
                 ()->assertNotNull(book,"Should return Non Null value"),
-                ()->assertEquals(book.getId(),1,"Should have id 1"),
-                ()->assertEquals(book.getName(),"Harry Potter","Should have identical Name"));
+                ()->assertEquals(1, book.getId(),"Should have id 1"),
+                ()->assertEquals("Harry Potter", book.getName(),"Should have identical Name"));
     }
 
     @Test @DisplayName("Finding Books By an Unkown name")
@@ -101,7 +101,7 @@ public class BookRepositoryTest {
     @Sql("/data.sql")
     @Test @DisplayName("Test Insertion SQL via script")
     void testSQLInjectin(){
-        assertEquals(authorRepository.findAll().size(),3);
+        assertEquals(3, authorRepository.findAll().size());
     }
 
 

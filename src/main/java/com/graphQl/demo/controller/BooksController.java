@@ -3,12 +3,14 @@ package com.graphQl.demo.controller;
 
 import com.graphQl.demo.dto.AuthorDto;
 import com.graphQl.demo.dto.BookDto;
+import com.graphQl.demo.dto.BookInput;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
 import com.graphQl.demo.models.Author;
 import com.graphQl.demo.models.AuthorEntity;
 import com.graphQl.demo.models.Book;
 import com.graphQl.demo.service.BookService;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -28,21 +30,47 @@ public class BooksController {
 
     private final BookService bookService;
 
+    /*By Mohamed Amine
+     * In GraphQL, this is known as a **resolver**.
+     *
+     * Simply put, a resolver is a method or function designed to "feed" or provide
+     * the data for a specific GraphQL field (like the fields in our Book schema).
+     *
+     * For example, when a client queries the 'books' field, GraphQL calls the corresponding
+     * resolver method in the backend to fetch and return the appropriate data.
+     *
+     * Each field in the schema can have its own resolver, especially for nested relationships.
+     *
+     * The following example is a Root Query/Mutation resolver
+     */
     @QueryMapping
     public List<BookDto> books() {
         return bookService.getAllBooks();
     }
 
     @QueryMapping
-    public Book bookById(@Argument String id) {
-        return Book.getById(id);
+    public BookDto bookByName(@Argument String name) {
+        return bookService.getBookByName(name);
     }
 
-    @SchemaMapping // this is used to map the author object to your book object
+    /* By Mohamed Amine
+    * This on the other hand is a Nested Field resolver
+    * Used to map field that graphQl have no idea how to map them
+    */
+    @SchemaMapping
     public AuthorDto author(BookDto book) {
         AuthorDto authorDto = authorMapper.mapTo(book.getAuthor());
         System.out.println(authorDto.getBornDate());
         return authorDto;
     }
+
+    /*
+    *  Book Creation Mutation
+    */
+    @MutationMapping
+    public BookDto createBook(@Argument BookInput bookInput){
+        return bookService.save(bookInput);
+    }
+
 
 }
