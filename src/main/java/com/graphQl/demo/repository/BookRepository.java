@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<BookEntity,Integer> {
+    @EntityGraph(attributePaths = "author")
     Optional<BookEntity> findBookEnityByName(String name);
 
 //    @Query("select b from books b join fetch b.author a")

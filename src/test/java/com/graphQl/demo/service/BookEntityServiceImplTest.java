@@ -1,4 +1,4 @@
-package com.graphQl.demo.service.impl;
+package com.graphQl.demo.service;
 
 import com.graphQl.demo.dto.AuthorDto;
 import com.graphQl.demo.dto.BookDto;
@@ -9,18 +9,14 @@ import com.graphQl.demo.mapper.impl.BookInputMapper;
 import com.graphQl.demo.models.AuthorEntity;
 import com.graphQl.demo.models.BookEntity;
 import com.graphQl.demo.repository.BookRepository;
-import com.graphQl.demo.service.BookService;
+import com.graphQl.demo.service.impl.BookEntityServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.time.LocalDate;
