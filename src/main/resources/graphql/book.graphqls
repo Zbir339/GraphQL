@@ -3,11 +3,14 @@ type Query {
     ## !! this queries must have the same name in your controller and same returning type
     books: [Book]
     bookByName(name: String):Book
+    authors: [AuthorDto]
+    authorById(id: ID): AuthorDto
     #bookById(id: ID): Book
 }
 ###type mutation
 type Mutation {
     createBook(bookInput: BookInput): Book
+    createAuthor(author: Author): AuthorDto
 }
 
 ### this below are schemas
@@ -16,7 +19,7 @@ type Book {
     name: String
     price:Float
     description:String
-    author: Author
+    author: AuthorDto
 }
 
 input BookInput {
@@ -26,8 +29,12 @@ input BookInput {
     authorId: ID!
 }
 
+input Author{
+    name:String
+    bornDate:String
+}
 
-type Author {
+type AuthorDto {
     id: ID
     name:String
     bornDate:String

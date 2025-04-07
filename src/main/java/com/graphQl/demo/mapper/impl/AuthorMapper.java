@@ -7,6 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Component
 public class AuthorMapper implements Mapper<AuthorEntity, AuthorDto> {
 
@@ -24,6 +27,14 @@ public class AuthorMapper implements Mapper<AuthorEntity, AuthorDto> {
                 AuthorEntity::getBornDate,
                 (dest, v) -> dest.setBornDate(v != null ? v.toString() : null)
         );
+
+        TypeMap<AuthorDto, AuthorEntity> typeMap2 = this.modelMapper.createTypeMap(AuthorDto.class, AuthorEntity.class);
+        typeMap2.addMappings(mapper -> {
+            mapper.skip(AuthorEntity::setId); // Skip setting ID on the entity
+            mapper.skip(AuthorEntity::setBornDate); // Skip setting BornDate on the entity
+        });
+
+
     }
 
     @Override

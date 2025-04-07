@@ -20,7 +20,6 @@ import java.util.List;
 @Controller
 public class BooksController {
 
-
     private AuthorMapper authorMapper;
 
     public BooksController(AuthorMapper authorMapper, BookService bookService) {
@@ -60,7 +59,7 @@ public class BooksController {
     @SchemaMapping
     public AuthorDto author(BookDto book) {
         AuthorDto authorDto = authorMapper.mapTo(book.getAuthor());
-        System.out.println(authorDto.getBornDate());
+        //System.out.println(authorDto.getBornDate());
         return authorDto;
     }
 

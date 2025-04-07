@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,8 +21,6 @@ class AuthorRepositoryTest {
 
     @Autowired
     AuthorRepository authorRepository;
-
-
 
 
     @Test @Sql("/data.sql")
@@ -67,6 +66,17 @@ class AuthorRepositoryTest {
                 ()->assertNotNull(authors.get(3),"Should Not be of type Null"),
                 ()->assertEquals("Mohamed",authors.get(3).getName())
         );
+
+    }
+
+
+    @Test
+    void timeTesting(){
+        String date  = "2000-04-25";
+        LocalDate date2 = LocalDate.of(2000,4,25);
+        LocalDate date1 = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        System.out.println(date1);
+        System.out.println(date2);
 
     }
 

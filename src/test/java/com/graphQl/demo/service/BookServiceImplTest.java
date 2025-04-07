@@ -9,7 +9,7 @@ import com.graphQl.demo.mapper.impl.BookInputMapper;
 import com.graphQl.demo.models.AuthorEntity;
 import com.graphQl.demo.models.BookEntity;
 import com.graphQl.demo.repository.BookRepository;
-import com.graphQl.demo.service.impl.BookEntityServiceImpl;
+import com.graphQl.demo.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-class BookEntityServiceImplTest {
+class BookServiceImplTest {
 
     // mock , mockBean , injectMock
     //ApplicationContext context; // to get beans or something
@@ -42,7 +42,7 @@ class BookEntityServiceImplTest {
     BookInputMapper bookInputMapper;
 
     @Autowired
-    BookEntityServiceImpl bookEntityService;
+    BookServiceImpl bookEntityService;
 
     @Autowired
     AuthorMapper authorMapper;

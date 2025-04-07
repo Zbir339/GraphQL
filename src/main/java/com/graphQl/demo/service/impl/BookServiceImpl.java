@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
 
 
 @Service
-public class BookEntityServiceImpl implements BookService {
+public class BookServiceImpl implements BookService {
 
     private BookRepository bookRepository;
     private BookMapper bookMapper;
@@ -28,7 +28,7 @@ public class BookEntityServiceImpl implements BookService {
     *  */
     private EntityManager entityManager;
 
-    public BookEntityServiceImpl(BookRepository bookRepository, BookMapper bookMapper, BookInputMapper bookInputMapper, EntityManager entityManager) {
+    public BookServiceImpl(BookRepository bookRepository, BookMapper bookMapper, BookInputMapper bookInputMapper, EntityManager entityManager) {
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
         this.bookInputMapper = bookInputMapper;
@@ -38,11 +38,9 @@ public class BookEntityServiceImpl implements BookService {
     @Override
     public BookDto getBookByName(String name) {
 
-        Optional<BookEntity> book =bookRepository.findBookEnityByName(name);
+        BookEntity book =bookRepository.findBookEnityByName(name).orElseThrow(BookNotFoundException::new);
 
-        if (book.isEmpty()) throw new BookNotFoundException();
-
-        return bookMapper.mapTo(book.get());
+        return bookMapper.mapTo(book);
 
     }
 
