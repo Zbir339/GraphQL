@@ -11,7 +11,7 @@ type Query {
         sortBy: String = "name",
         direction: SortDirection = ASC,
         filter: BookFilterInput
-    ): [PaginatedBookResponse]
+    ): PaginatedBookResponse
     #bookById(id: ID): Book
 }
 ###type mutation
@@ -49,11 +49,11 @@ type AuthorDto {
 ##### this is the pagination schema and the query is up
 
 type PaginatedBookResponse {
-    content: [Book]  # Liste des livres de la page
-    totalElements: Int  # Nombre total de livres
-    totalPages: Int  # Nombre total de pages
-    pageSize: Int  # Taille de la page
-    currentPage: Int  # Page actuelle
+    content: [Book]
+    totalElements: Int
+    totalPages: Int
+    pageSize: Int
+    currentPage: Int
 }
 
 
