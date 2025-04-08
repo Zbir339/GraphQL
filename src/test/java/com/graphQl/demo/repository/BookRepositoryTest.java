@@ -3,7 +3,6 @@ package com.graphQl.demo.repository;
 
 import com.graphQl.demo.domain.entities.AuthorEntity;
 import com.graphQl.demo.domain.entities.BookEntity;
-import com.graphQl.demo.domain.enums.SortDirection;
 import com.graphQl.demo.domain.specifications.BookSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;

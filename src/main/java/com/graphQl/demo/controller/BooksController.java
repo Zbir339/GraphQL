@@ -1,11 +1,11 @@
 package com.graphQl.demo.controller;
 
 
-import com.graphQl.demo.domain.dto.AuthorDto;
-import com.graphQl.demo.domain.dto.BookDto;
-import com.graphQl.demo.domain.dto.BookInput;
+import com.graphQl.demo.domain.dto.*;
+import com.graphQl.demo.domain.enums.SortDirection;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
 import com.graphQl.demo.service.BookService;
+import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -47,6 +47,26 @@ public class BooksController {
     @QueryMapping
     public BookDto bookByName(@Argument String name) {
         return bookService.getBookByName(name);
+    }
+
+    @QueryMapping
+    public PaginatedBooksResponse getBooksPages(@Argument int page,
+                                             @Argument int size,
+                                             @Argument String sortBy,
+                                             @Argument SortDirection direction,
+                                             @Argument BookFilterInput filter
+    ) {
+
+        Page<BookDto> booksPage = bookService.getAllBooksPaginated(page,size,sortBy,direction,filter);
+
+        return new PaginatedBooksResponse(
+                booksPage.getContent(), // Liste des livres de la page
+                (int) booksPage.getTotalElements(), // Nombre total de livres
+                booksPage.getTotalPages(), // Nombre total de pages
+                booksPage.getSize(), // Taille de la page
+                booksPage.getNumber() // Page actuelle
+        );
+
     }
 
     /* By Mohamed Amine
