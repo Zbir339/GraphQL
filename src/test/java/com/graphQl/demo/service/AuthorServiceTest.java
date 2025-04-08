@@ -1,15 +1,13 @@
 package com.graphQl.demo.service;
 
-import com.graphQl.demo.dto.AuthorDto;
+import com.graphQl.demo.domain.dto.AuthorDto;
 import com.graphQl.demo.exception.AuthorNotFoundException;
-import com.graphQl.demo.models.AuthorEntity;
+import com.graphQl.demo.domain.entities.AuthorEntity;
 import com.graphQl.demo.repository.AuthorRepository;
 import com.graphQl.demo.service.impl.AuthorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

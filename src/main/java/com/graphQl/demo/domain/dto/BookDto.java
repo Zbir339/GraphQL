@@ -1,7 +1,6 @@
-package com.graphQl.demo.dto;
+package com.graphQl.demo.domain.dto;
 
-import com.graphQl.demo.models.AuthorEntity;
-import jakarta.persistence.ManyToOne;
+import com.graphQl.demo.domain.entities.AuthorEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

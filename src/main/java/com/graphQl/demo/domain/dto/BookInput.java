@@ -1,4 +1,4 @@
-package com.graphQl.demo.dto;
+package com.graphQl.demo.domain.dto;
 
 import lombok.*;
 

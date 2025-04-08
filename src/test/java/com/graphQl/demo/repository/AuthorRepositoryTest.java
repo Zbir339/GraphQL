@@ -1,6 +1,6 @@
 package com.graphQl.demo.repository;
 
-import com.graphQl.demo.models.AuthorEntity;
+import com.graphQl.demo.domain.entities.AuthorEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;

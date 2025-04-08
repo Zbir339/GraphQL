@@ -1,13 +1,10 @@
 package com.graphQl.demo.controller;
 
 
-import com.graphQl.demo.dto.AuthorDto;
-import com.graphQl.demo.dto.BookDto;
-import com.graphQl.demo.dto.BookInput;
+import com.graphQl.demo.domain.dto.AuthorDto;
+import com.graphQl.demo.domain.dto.BookDto;
+import com.graphQl.demo.domain.dto.BookInput;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
-import com.graphQl.demo.models.Author;
-import com.graphQl.demo.models.AuthorEntity;
-import com.graphQl.demo.models.Book;
 import com.graphQl.demo.service.BookService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;

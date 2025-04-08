@@ -1,14 +1,11 @@
 package com.graphQl.demo.mapper.impl;
 
-import com.graphQl.demo.dto.AuthorDto;
+import com.graphQl.demo.domain.dto.AuthorDto;
 import com.graphQl.demo.mapper.Mapper;
-import com.graphQl.demo.models.AuthorEntity;
+import com.graphQl.demo.domain.entities.AuthorEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class AuthorMapper implements Mapper<AuthorEntity, AuthorDto> {

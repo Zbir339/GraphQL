@@ -5,6 +5,13 @@ type Query {
     bookByName(name: String):Book
     authors: [AuthorDto]
     authorById(id: ID): AuthorDto
+    paginatedBooks(
+        page: Int = 0,
+        size: Int = 10,
+        sortBy: String = "name",
+        direction: SortDirection = ASC,
+        filter: BookFilterInput
+    ): [Book]
     #bookById(id: ID): Book
 }
 ###type mutation
@@ -38,4 +45,17 @@ type AuthorDto {
     id: ID
     name:String
     bornDate:String
+}
+##### this is the pagination schema and the query is up
+
+input BookFilterInput {
+    authorName: String
+    minPrice: Float
+    maxPrice: Float
+    titleContains: String
+}
+
+enum SortDirection {
+    ASC
+    DESC
 }

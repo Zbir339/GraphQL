@@ -1,7 +1,6 @@
 package com.graphQl.demo.service;
 
-import com.graphQl.demo.dto.AuthorDto;
-import com.graphQl.demo.models.AuthorEntity;
+import com.graphQl.demo.domain.dto.AuthorDto;
 
 import java.util.List;
 

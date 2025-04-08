@@ -1,4 +1,4 @@
-package com.graphQl.demo.models;
+package com.graphQl.demo.domain.entities;
 
 import java.util.Arrays;
 import java.util.List;

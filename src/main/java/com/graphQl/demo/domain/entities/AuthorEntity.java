@@ -1,10 +1,8 @@
-package com.graphQl.demo.models;
+package com.graphQl.demo.domain.entities;
 
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 import java.util.List;

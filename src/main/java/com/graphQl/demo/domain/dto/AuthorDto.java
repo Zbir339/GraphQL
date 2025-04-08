@@ -1,11 +1,9 @@
-package com.graphQl.demo.dto;
+package com.graphQl.demo.domain.dto;
 
 
-import com.graphQl.demo.models.BookEntity;
-import jakarta.persistence.OneToMany;
+import com.graphQl.demo.domain.entities.BookEntity;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @AllArgsConstructor

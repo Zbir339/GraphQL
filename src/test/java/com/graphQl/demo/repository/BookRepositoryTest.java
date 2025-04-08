@@ -1,14 +1,20 @@
 package com.graphQl.demo.repository;
 
 
-import com.graphQl.demo.models.AuthorEntity;
-import com.graphQl.demo.models.BookEntity;
-import org.springframework.transaction.annotation.Transactional;
+import com.graphQl.demo.domain.entities.AuthorEntity;
+import com.graphQl.demo.domain.entities.BookEntity;
+import com.graphQl.demo.domain.enums.SortDirection;
+import com.graphQl.demo.domain.specifications.BookSpecification;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
@@ -94,9 +100,9 @@ public class BookRepositoryTest {
 
     /*  @Sql("/<file-sql>")
      * for this to work you must make sure that your spring app is not consuming the file on each run
-     * since we are using an embeded db your database will be created on each run
-     * and spring on each run tries to insert data so when he dosen't find a db he'll crash before even runing your test
-     * I am not using an AfterAll simply H2 db it'll empty it self
+     * since we are using an embedded db your database will be created on each run
+     * and spring on each run tries to insert data so when he doesn't find a db he'll crash before even running your test
+     * I am not using an After All simply H2 db it'll empty itself
      */
     @Sql("/data.sql")
     @Test @DisplayName("Test Insertion SQL via script")
@@ -104,7 +110,116 @@ public class BookRepositoryTest {
         assertEquals(3, authorRepository.findAll().size());
     }
 
+    @Sql("/data.sql")
+    @Test @DisplayName("Finding Books By Author name")
+    void findBookByFilterAuthorNameReturnPage(){
 
+        Pageable pageable = PageRequest.of(
+                0,5,
+                Sort.by("name").descending()
+        );
+
+        Specification<BookEntity> spec = Specification.where(BookSpecification.hasAuthorName("JK Watkins"));
+
+        Page<BookEntity> books = bookRepository.findAll(spec,pageable);
+
+        assertAll("",
+                ()->assertEquals(1,books.getContent().size(),"Should be of 3 elements"));
+
+    }
+
+    @Sql("/data.sql")
+    @Test @DisplayName("Finding Books By Price max value")
+    void findBookByFilterMaxPriceReturnPage(){
+
+        Pageable pageable = PageRequest.of(
+                0,5,
+                Sort.by("name").descending()
+        );
+
+        Random rand = new Random();
+
+        Specification<BookEntity> spec = Specification.where(BookSpecification.priceLowerThan(500f));
+
+        Page<BookEntity> books = bookRepository.findAll(spec,pageable);
+
+
+        assertAll("Shoul have 2 elems and order by name desc",
+                ()->assertEquals(2,books.getContent().size(),"Should be of 3 elements"),
+                ()->assertTrue(books.getContent().get(rand.nextInt(0,1)).getPrice() <= 500f ,"The price should be lower or equal" ),
+                ()->assertEquals("The Champ",books.getContent().get(0).getName(),"Should be the champ order by name desc"));
+
+    }
+
+
+    @Sql("/data.sql")
+    @Test @DisplayName("Finding Books By Price max value")
+    void findBookByFilterMixPriceReturnPage(){
+
+        Pageable pageable = PageRequest.of(
+                0,5,
+                Sort.by("name").descending()
+        );
+
+        Random rand = new Random();
+
+        Specification<BookEntity> spec = Specification.where(BookSpecification.priceGreaterThan(100f));
+
+        Page<BookEntity> books = bookRepository.findAll(spec,pageable);
+
+
+        assertAll("Should have 3 elems and order by name desc",
+                ()->assertEquals(3,books.getContent().size(),"Should be of 3 elements"),
+                ()->assertTrue(books.getContent().get(rand.nextInt(0,2)).getPrice() >= 100f ,"The price should be lower or equal" ),
+                ()->assertEquals("The Hobbit",books.getContent().get(0).getName(),"Should be the champ order by name desc"));
+
+    }
+
+    @Sql("/data.sql")
+    @Test @DisplayName("Finding Books By Price max value")
+    void findBookByFilterTitleReturnPage(){
+
+        Pageable pageable = PageRequest.of(
+                0,5,
+                Sort.by("name").descending()
+        );
+
+        Specification<BookEntity> spec = Specification.where(BookSpecification.titleContains("Harry"));
+
+        Page<BookEntity> books = bookRepository.findAll(spec,pageable);
+
+
+        assertAll("Should have 1 elems and order by name desc",
+                ()->assertEquals(1,books.getContent().size(),"Should be of 3 elements"),
+                ()->assertEquals("Harry Potter",books.getContent().get(0).getName(),"Should be the champ order by name desc"));
+    }
+
+    @Sql("/data.sql")
+    @Test @DisplayName("Finding Books By Price max value")
+    void findBookByFilterCombinationReturnPage(){
+
+        Pageable pageable = PageRequest.of(
+                0,5,
+                Sort.by("name").descending()
+        );
+
+        Random rand = new Random();
+
+        Specification<BookEntity> spec = Specification.where(BookSpecification.titleContains("The"))
+                .and(BookSpecification.priceGreaterThan(100f))
+                .and(BookSpecification.priceLowerThan(1000f))
+                .and(BookSpecification.hasAuthorName("a"));
+
+
+        Page<BookEntity> books = bookRepository.findAll(spec,pageable);
+
+
+        assertAll("Should have 2 elems and order by name desc",
+                ()->assertEquals(2,books.getContent().size(),"Should be of 3 elements"),
+                ()->assertNotNull( books.getContent().get(rand.nextInt(0,2)),"Should Not be null "),
+                ()->assertEquals("The Hobbit",books.getContent().get(0).getName())
+        );
+    }
 
 
 }

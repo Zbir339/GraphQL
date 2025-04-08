@@ -1,6 +1,6 @@
 package com.graphQl.demo.repository;
 
-import com.graphQl.demo.models.AuthorEntity;
+import com.graphQl.demo.domain.entities.AuthorEntity;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

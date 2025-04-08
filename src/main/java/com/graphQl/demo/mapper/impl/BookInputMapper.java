@@ -1,12 +1,9 @@
 package com.graphQl.demo.mapper.impl;
 
-import com.graphQl.demo.dto.AuthorDto;
-import com.graphQl.demo.dto.BookInput;
+import com.graphQl.demo.domain.dto.BookInput;
 import com.graphQl.demo.mapper.Mapper;
-import com.graphQl.demo.models.AuthorEntity;
-import com.graphQl.demo.models.BookEntity;
+import com.graphQl.demo.domain.entities.BookEntity;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.stereotype.Component;
 
 @Component

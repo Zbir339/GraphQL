@@ -1,14 +1,14 @@
 package com.graphQl.demo.repository;
 
-import com.graphQl.demo.models.BookEntity;
+import com.graphQl.demo.domain.entities.BookEntity;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface BookRepository extends JpaRepository<BookEntity,Integer> {
+public interface BookRepository extends JpaRepository<BookEntity,Integer>, JpaSpecificationExecutor<BookEntity> {
     @EntityGraph(attributePaths = "author")
     Optional<BookEntity> findBookEnityByName(String name);
 

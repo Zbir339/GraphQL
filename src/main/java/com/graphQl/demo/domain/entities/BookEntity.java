@@ -1,10 +1,9 @@
-package com.graphQl.demo.models;
+package com.graphQl.demo.domain.entities;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity(name = "books")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
@@ -19,7 +18,7 @@ public class BookEntity {
     private Float price;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     //@Fetch(FetchMode.JOIN)
     private AuthorEntity author;
 

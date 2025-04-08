@@ -1,13 +1,13 @@
 package com.graphQl.demo.service;
 
-import com.graphQl.demo.dto.AuthorDto;
-import com.graphQl.demo.dto.BookDto;
-import com.graphQl.demo.dto.BookInput;
+import com.graphQl.demo.domain.dto.AuthorDto;
+import com.graphQl.demo.domain.dto.BookDto;
+import com.graphQl.demo.domain.dto.BookInput;
 import com.graphQl.demo.exception.BookNotFoundException;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
 import com.graphQl.demo.mapper.impl.BookInputMapper;
-import com.graphQl.demo.models.AuthorEntity;
-import com.graphQl.demo.models.BookEntity;
+import com.graphQl.demo.domain.entities.AuthorEntity;
+import com.graphQl.demo.domain.entities.BookEntity;
 import com.graphQl.demo.repository.BookRepository;
 import com.graphQl.demo.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
