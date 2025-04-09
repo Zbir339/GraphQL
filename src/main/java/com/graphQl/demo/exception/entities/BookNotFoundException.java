@@ -1,4 +1,4 @@
-package com.graphQl.demo.exception;
+package com.graphQl.demo.exception.entities;
 
 public class BookNotFoundException extends RuntimeException{
     public BookNotFoundException(){

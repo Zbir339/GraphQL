@@ -1,7 +1,7 @@
 package com.graphQl.demo.service.impl;
 
 import com.graphQl.demo.domain.dto.AuthorDto;
-import com.graphQl.demo.exception.AuthorNotFoundException;
+import com.graphQl.demo.exception.entities.AuthorNotFoundException;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
 import com.graphQl.demo.domain.entities.AuthorEntity;
 import com.graphQl.demo.repository.AuthorRepository;

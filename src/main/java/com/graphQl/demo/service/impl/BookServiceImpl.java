@@ -5,7 +5,7 @@ import com.graphQl.demo.domain.dto.BookFilterInput;
 import com.graphQl.demo.domain.dto.BookInput;
 import com.graphQl.demo.domain.enums.SortDirection;
 import com.graphQl.demo.domain.specifications.BookSpecification;
-import com.graphQl.demo.exception.BookNotFoundException;
+import com.graphQl.demo.exception.entities.BookNotFoundException;
 import com.graphQl.demo.mapper.impl.BookInputMapper;
 import com.graphQl.demo.mapper.impl.BookMapper;
 import com.graphQl.demo.domain.entities.AuthorEntity;

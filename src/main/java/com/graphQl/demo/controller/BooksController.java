@@ -5,6 +5,7 @@ import com.graphQl.demo.domain.dto.*;
 import com.graphQl.demo.domain.enums.SortDirection;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
 import com.graphQl.demo.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -84,7 +85,7 @@ public class BooksController {
     *  Book Creation Mutation
     */
     @MutationMapping
-    public BookDto createBook(@Argument BookInput bookInput){
+    public BookDto createBook(@Valid @Argument BookInput bookInput){
         return bookService.save(bookInput);
     }
 

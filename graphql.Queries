@@ -1,0 +1,23 @@
+### queries ###
+{
+  getBooksPages(
+    page:0
+    size:5
+    sortBy:"price"
+    direction:ASC
+    filter:{
+      minPrice:450
+    }
+  ){
+    content{
+      name
+      price
+    }
+    pageSize
+    totalPages
+    totalElements
+
+  }
+}
+
+### mutation ###

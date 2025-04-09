@@ -1,6 +1,10 @@
+# Scalars are base types within graphQL : Int #Float #String #Boolean #ID
+### Scalars Type Creation ###
+scalar Date
+
 type Query {
     ## this are the queries you have
-    ## !! this queries must have the same name in your controller and same returning type
+    ## !! this queries must have the same name to those in your controller and same returning type
     books: [Book]
     bookByName(name: String):Book
     authors: [AuthorDto]
@@ -12,6 +16,7 @@ type Query {
         direction: SortDirection = ASC,
         filter: BookFilterInput
     ): PaginatedBookResponse
+    testScalarsAuthors: [AuthorTest]
     #bookById(id: ID): Book
 }
 ###type mutation
@@ -36,6 +41,12 @@ input BookInput {
     authorId: ID!
 }
 
+type AuthorTest{
+    name:String
+    bornDate: Date
+}
+
+
 input Author{
     name:String
     bornDate:String
@@ -55,7 +66,6 @@ type PaginatedBookResponse {
     pageSize: Int
     currentPage: Int
 }
-
 
 input BookFilterInput {
     authorName: String

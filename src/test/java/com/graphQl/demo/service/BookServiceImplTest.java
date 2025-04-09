@@ -3,7 +3,7 @@ package com.graphQl.demo.service;
 import com.graphQl.demo.domain.dto.AuthorDto;
 import com.graphQl.demo.domain.dto.BookDto;
 import com.graphQl.demo.domain.dto.BookInput;
-import com.graphQl.demo.exception.BookNotFoundException;
+import com.graphQl.demo.exception.entities.BookNotFoundException;
 import com.graphQl.demo.mapper.impl.AuthorMapper;
 import com.graphQl.demo.mapper.impl.BookInputMapper;
 import com.graphQl.demo.domain.entities.AuthorEntity;
