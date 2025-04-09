@@ -60,6 +60,13 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
+<!-- 	    This is graphql scalars extensions that are pre_made and ready to use     	-->
+<!--		<dependency>-->
+<!--			<groupId>com.graphql-java</groupId>-->
+<!--			<artifactId>graphql-java-extended-scalars</artifactId>-->
+<!--			<version>22.0</version>-->
+<!--		</dependency>-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -93,6 +100,23 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

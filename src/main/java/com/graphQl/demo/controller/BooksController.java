@@ -11,6 +11,7 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -40,11 +41,13 @@ public class BooksController {
      *
      * The following example is a Root Query/Mutation resolver
      */
+    @Secured("ROLE_USER")
     @QueryMapping
     public List<BookDto> books() {
         return bookService.getAllBooks();
     }
 
+    @Secured("ROLE_ADMIN")
     @QueryMapping
     public BookDto bookByName(@Argument String name) {
         return bookService.getBookByName(name);
@@ -74,6 +77,7 @@ public class BooksController {
     * This on the other hand is a Nested Field resolver
     * Used to map field that graphQl have no idea how to map them
     */
+
     @SchemaMapping
     public AuthorDto author(BookDto book) {
         AuthorDto authorDto = authorMapper.mapTo(book.getAuthor());

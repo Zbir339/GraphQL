@@ -5,6 +5,7 @@ import com.graphQl.demo.service.AuthorService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -18,6 +19,10 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
+
+    /**/
+
+    @Secured("ROLE_ADMIN")
     @QueryMapping
     public List<AuthorDto> authors() {
         return authorService.getAllAuthors();
